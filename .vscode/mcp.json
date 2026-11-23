@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"utilitybelt": {
+			"type": "stdio",
+			"command": "bun",
+			"args": ["${workspaceFolder}/cli/mcp.ts"]
+		}
+	}
+}

@@ -1,0 +1,67 @@
+{
+	"name": "gus-utilitybelt",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"description": "Kit de utilidades para devs, com API para IAs (MCP, WebMCP, CLI e links /run).",
+	"bin": {
+		"ub": "./cli/ub.ts",
+		"ub-mcp": "./cli/mcp.ts"
+	},
+	"imports": {
+		"#lib": "./src/lib/index.ts",
+		"#lib/*": "./src/lib/*"
+	},
+	"packageManager": "bun@1.4.5",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --tsgo",
+		"test": "bun test",
+		"serve": "devctl up --static --port 4174",
+		"stop": "devctl stop gus-utilitybelt",
+		"ub": "bun cli/ub.ts",
+		"mcp": "bun cli/mcp.ts",
+		"deploy": "bash scripts/deploy.sh"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^4.0.1",
+		"@sveltejs/kit": "^3.4.0",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
+		"@types/bun": "^1.4.5",
+		"@types/node": "^26.6.6",
+		"@types/qrcode": "^1.5.6",
+		"@typescript/native": "npm:typescript@7",
+		"svelte": "^5.59.1",
+		"svelte-check": "^4.7.8",
+		"typescript": "~6",
+		"vite": "^8.3.8"
+	},
+	"dependencies": {
+		"@huggingface/transformers": "4.3.2",
+		"@jsquash/avif": "2.1.1",
+		"@jsquash/webp": "1.5.0",
+		"@lucide/svelte": "^1.77.0",
+		"@modelcontextprotocol/sdk": "^1.32.2",
+		"@prettier/plugin-php": "^0.26.0",
+		"@prettier/plugin-xml": "^3.4.2",
+		"ag-psd": "34.1.0",
+		"cron-parser": "^5.10.6",
+		"diff": "^9.0.0",
+		"dompurify": "^3.5.0",
+		"fflate": "0.8.3",
+		"gifenc": "1.0.3",
+		"heic-to": "1.6.7",
+		"imagetracerjs": "1.2.6",
+		"jsbarcode": "^3.12.3",
+		"lottie-web": "5.13.0",
+		"marked": "^18.2.1",
+		"motion": "^14.14.0",
+		"mp4-muxer": "5.2.2",
+		"prettier": "^3.10.1",
+		"qrcode": "^1.5.4",
+		"sql-formatter": "^15.10.0",
+		"utif2": "4.1.0"
+	}
+}
