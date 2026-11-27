@@ -23,13 +23,14 @@ python3 "$DEPLOYER" "${KEY_ARGS[@]}" deploy static build --domain "$DOMAIN" --no
 
 # Bloco do Caddy. URLs sem barra final (trailingSlash 'never'): /png-para-webp → png-para-webp.html.
 # Assets com hash ficam em cache por 1 ano; HTML sempre revalida.
+# camera=(self): o scanner do app PDF usa a câmera ao vivo (só na própria origem).
 EXTRA=$(cat <<CADDY
 root * $ROOT
 header {
 	Strict-Transport-Security "max-age=31536000; includeSubDomains"
 	X-Content-Type-Options "nosniff"
 	Referrer-Policy "strict-origin-when-cross-origin"
-	Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+	Permissions-Policy "camera=(self), microphone=(), geolocation=(), interest-cohort=()"
 	-Server
 }
 @immutable path /_app/immutable/*
