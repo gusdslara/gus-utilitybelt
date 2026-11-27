@@ -322,6 +322,21 @@ class PdfStore {
 	}
 
 	/** Páginas como imagens (JPEG; P&B em PNG), num ZIP. */
+	/**
+	 * Uma página processada (recorte + filtro + giro) em resolução total: PNG no P&B, JPEG nos demais.
+	 * `params` permite exportar um rascunho do editor sem aplicá-lo.
+	 */
+	async exportImage(id: string, params?: PageParams): Promise<{ blob: Blob; name: string }> {
+		const i = this.pages.findIndex((p) => p.id === id);
+		const p = this.pages[i];
+		if (!p) throw new Error('page not found');
+		const pr = params ?? p.params;
+		const png = pr.filter === 'bw';
+		const r = await scan.image(p.id, p.src, pr, png ? 'image/png' : 'image/jpeg', 0.92);
+		const base = this.outName.replace(/\.pdf$/, '');
+		return { blob: r.blob, name: `${base}-${String(i + 1).padStart(2, '0')}.${png ? 'png' : 'jpg'}` };
+	}
+
 	async exportImages(): Promise<{ blob: Blob; name: string } | null> {
 		if (!this.pages.length || this.exporting) return null;
 		this.exporting = true;
@@ -332,10 +347,7 @@ class PdfStore {
 			const base = this.outName.replace(/\.pdf$/, '');
 			for (let i = 0; i < this.pages.length; i++) {
 				if (this.cancel) return null;
-				const p = this.pages[i];
-				const png = p.params.filter === 'bw';
-				const r = await scan.image(p.id, p.src, p.params, png ? 'image/png' : 'image/jpeg', 0.92);
-				files.push({ name: `${base}-${String(i + 1).padStart(2, '0')}.${png ? 'png' : 'jpg'}`, blob: r.blob });
+				files.push(await this.exportImage(this.pages[i].id));
 				this.exportProgress = (i + 1) / this.pages.length;
 			}
 			if (files.length === 1) return files[0];

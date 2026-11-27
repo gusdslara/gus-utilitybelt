@@ -1,5 +1,6 @@
 <script lang="ts">
-	// Editor de uma página: recorte (cantos com correção de perspectiva) e filtro, com preview do resultado.
+	// Editor de uma página: abre no resultado processado (filtro), com aba de recorte (cantos com correção de perspectiva)
+	// e download da imagem final em resolução total.
 	import { onDestroy, onMount, untrack } from 'svelte';
 	import { pdf } from '#lib/pdf/store.svelte.ts';
 	import { scan } from '#lib/scan/client.ts';
@@ -9,14 +10,16 @@
 	import { t } from '#lib/i18n/index.svelte.ts';
 	import QuadEditor from './QuadEditor.svelte';
 	import { portal } from './portal.ts';
-	import { X, Crop, SlidersHorizontal, RotateCcw, RotateCw, WandSparkles, Maximize, LoaderCircle, Check } from '@lucide/svelte';
+	import { X, Crop, RotateCcw, RotateCw, WandSparkles, Maximize, LoaderCircle, Check, Download, Eye } from '@lucide/svelte';
+	import { saveBlob } from '#lib/image/io.ts';
 
 	let { id, onclose }: { id: string; onclose: () => void } = $props();
 
 	const page = $derived(pdf.byId(id));
 	const index = $derived(pdf.pages.findIndex((p) => p.id === id));
 	let draft = $state<PageParams>(untrack(() => structuredClone($state.snapshot(pdf.byId(id)!.params)) as PageParams));
-	let tab = $state<'crop' | 'filter'>('crop');
+	let tab = $state<'crop' | 'filter'>('filter');
+	let saving = $state(false);
 	let srcPreview = $state<{ url: string; w: number; h: number } | null>(null);
 	let result = $state<{ url: string; w: number; h: number } | null>(null);
 	let busy = $state(false);
@@ -81,6 +84,20 @@
 		} else note = t('pdf.editor.noDetect');
 	}
 
+	async function download() {
+		if (saving) return;
+		saving = true;
+		note = '';
+		try {
+			const r = await pdf.exportImage(id, $state.snapshot(draft) as PageParams);
+			await saveBlob(r.blob, r.name);
+		} catch (e) {
+			note = e instanceof Error ? e.message : String(e);
+		} finally {
+			saving = false;
+		}
+	}
+
 	function apply() {
 		pdf.setParams(id, $state.snapshot(draft) as PageParams);
 		onclose();
@@ -119,8 +136,8 @@
 		<header class="top">
 			<h2 id="pe-title">{t('pdf.editor.title', { n: index + 1 })}</h2>
 			<div class="seg tabs" role="tablist">
-				<button role="tab" aria-selected={tab === 'crop'} onclick={() => (tab = 'crop')} data-autofocus><Crop size={15} /> {t('pdf.editor.crop')}</button>
-				<button role="tab" aria-selected={tab === 'filter'} onclick={() => (tab = 'filter')}><SlidersHorizontal size={15} /> {t('pdf.editor.filter')}</button>
+				<button role="tab" aria-selected={tab === 'filter'} onclick={() => (tab = 'filter')} data-autofocus><Eye size={15} /> {t('pdf.editor.result')}</button>
+				<button role="tab" aria-selected={tab === 'crop'} onclick={() => (tab = 'crop')}><Crop size={15} /> {t('pdf.editor.crop')}</button>
 			</div>
 			<button class="btn ghost icon" onclick={onclose} aria-label={t('pdf.editor.cancel')}><X size={18} /></button>
 		</header>
@@ -159,7 +176,7 @@
 						</button>
 					{/each}
 				</div>
-				<p class="hint">{t(`pdf.filterHints.${draft.filter}`)}</p>
+				<p class="hint">{note || t(`pdf.filterHints.${draft.filter}`)}</p>
 				{#if draft.filter === 'bw'}
 					<label class="thr">
 						<span class="label">{t('pdf.editor.threshold')}</span>
@@ -177,6 +194,11 @@
 		</div>
 
 		<footer class="foot">
+			<button class="btn" onclick={download} disabled={saving} title={t('pdf.page.download')} aria-label={t('pdf.page.download')}>
+				{#if saving}<LoaderCircle class="spin" size={16} />{:else}<Download size={16} />{/if}
+				<span class="dl-label">{t('pdf.editor.download')}</span>
+			</button>
+			<span class="grow"></span>
 			<button class="btn ghost" onclick={onclose}>{t('pdf.editor.cancel')}</button>
 			<button class="btn primary" onclick={apply}><Check size={16} /> {t('pdf.editor.apply')}</button>
 		</footer>
@@ -234,5 +256,8 @@
 		.tabs button { flex: 1; justify-content: center; }
 		.thr { grid-template-columns: 1fr; }
 		.thr .hint { display: none; }
+	}
+	@media (max-width: 420px) {
+		.dl-label { display: none; }
 	}
 </style>

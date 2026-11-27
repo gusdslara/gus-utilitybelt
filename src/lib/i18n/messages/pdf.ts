@@ -19,7 +19,7 @@ export default ns({
 		importErrors: 'Não foi possível abrir:',
 		dismiss: 'Dispensar',
 		page: {
-			label: 'Página {n}', edit: 'Editar recorte e filtro', rotateL: 'Girar à esquerda', rotateR: 'Girar à direita', duplicate: 'Duplicar',
+			label: 'Página {n}', download: 'Baixar imagem processada', edit: 'Editar recorte e filtro', rotateL: 'Girar à esquerda', rotateR: 'Girar à direita', duplicate: 'Duplicar',
 			remove: 'Remover', drag: 'Arrastar para reordenar (setas do teclado também movem)', processing: 'Processando…', error: 'Falha ao processar', cropped: 'Recortada'
 		},
 		filters: { original: 'Original', enhance: 'Realçado', gray: 'Cinza', bw: 'P&B' },
@@ -49,7 +49,7 @@ export default ns({
 			saved: 'Salvo', failed: 'Não foi possível gerar: {msg}'
 		},
 		editor: {
-			title: 'Editar página {n}', crop: 'Recortar', filter: 'Filtro', auto: 'Detectar', full: 'Página inteira', noDetect: 'Nenhum documento detectado nesta foto.',
+			title: 'Editar página {n}', crop: 'Recortar', filter: 'Filtro', result: 'Resultado', download: 'Baixar imagem', auto: 'Detectar', full: 'Página inteira', noDetect: 'Nenhum documento detectado nesta foto.',
 			threshold: 'Limiar', lighter: 'Mais claro', darker: 'Mais escuro', apply: 'Aplicar', cancel: 'Cancelar', loading: 'Carregando…',
 			hint: 'Arraste os cantos ou as bordas. A perspectiva é corrigida e a proporção real do papel é calculada.', corner: 'Canto {n}', edge: 'Borda {n}'
 		},
@@ -79,7 +79,7 @@ export default ns({
 		importErrors: 'Could not open:',
 		dismiss: 'Dismiss',
 		page: {
-			label: 'Page {n}', edit: 'Edit crop and filter', rotateL: 'Rotate left', rotateR: 'Rotate right', duplicate: 'Duplicate',
+			label: 'Page {n}', download: 'Download processed image', edit: 'Edit crop and filter', rotateL: 'Rotate left', rotateR: 'Rotate right', duplicate: 'Duplicate',
 			remove: 'Remove', drag: 'Drag to reorder (arrow keys also move it)', processing: 'Processing…', error: 'Processing failed', cropped: 'Cropped'
 		},
 		filters: { original: 'Original', enhance: 'Enhanced', gray: 'Grayscale', bw: 'B&W' },
@@ -109,7 +109,7 @@ export default ns({
 			saved: 'Saved', failed: 'Could not create it: {msg}'
 		},
 		editor: {
-			title: 'Edit page {n}', crop: 'Crop', filter: 'Filter', auto: 'Detect', full: 'Whole page', noDetect: 'No document detected in this photo.',
+			title: 'Edit page {n}', crop: 'Crop', filter: 'Filter', result: 'Result', download: 'Download image', auto: 'Detect', full: 'Whole page', noDetect: 'No document detected in this photo.',
 			threshold: 'Threshold', lighter: 'Lighter', darker: 'Darker', apply: 'Apply', cancel: 'Cancel', loading: 'Loading…',
 			hint: 'Drag the corners or edges. Perspective is corrected and the real paper proportion is computed.', corner: 'Corner {n}', edge: 'Edge {n}'
 		},
@@ -139,7 +139,7 @@ export default ns({
 		importErrors: 'No se pudo abrir:',
 		dismiss: 'Descartar',
 		page: {
-			label: 'Página {n}', edit: 'Editar recorte y filtro', rotateL: 'Girar a la izquierda', rotateR: 'Girar a la derecha', duplicate: 'Duplicar',
+			label: 'Página {n}', download: 'Descargar imagen procesada', edit: 'Editar recorte y filtro', rotateL: 'Girar a la izquierda', rotateR: 'Girar a la derecha', duplicate: 'Duplicar',
 			remove: 'Quitar', drag: 'Arrastra para reordenar (las flechas del teclado también la mueven)', processing: 'Procesando…', error: 'Error al procesar', cropped: 'Recortada'
 		},
 		filters: { original: 'Original', enhance: 'Mejorado', gray: 'Grises', bw: 'B/N' },
@@ -169,7 +169,7 @@ export default ns({
 			saved: 'Guardado', failed: 'No se pudo crear: {msg}'
 		},
 		editor: {
-			title: 'Editar página {n}', crop: 'Recortar', filter: 'Filtro', auto: 'Detectar', full: 'Página completa', noDetect: 'No se detectó ningún documento en esta foto.',
+			title: 'Editar página {n}', crop: 'Recortar', filter: 'Filtro', result: 'Resultado', download: 'Descargar imagen', auto: 'Detectar', full: 'Página completa', noDetect: 'No se detectó ningún documento en esta foto.',
 			threshold: 'Umbral', lighter: 'Más claro', darker: 'Más oscuro', apply: 'Aplicar', cancel: 'Cancelar', loading: 'Cargando…',
 			hint: 'Arrastra las esquinas o los bordes. Se corrige la perspectiva y se calcula la proporción real del papel.', corner: 'Esquina {n}', edge: 'Borde {n}'
 		},
@@ -199,7 +199,7 @@ export default ns({
 		importErrors: 'Impossible d’ouvrir :',
 		dismiss: 'Ignorer',
 		page: {
-			label: 'Page {n}', edit: 'Modifier le recadrage et le filtre', rotateL: 'Pivoter à gauche', rotateR: 'Pivoter à droite', duplicate: 'Dupliquer',
+			label: 'Page {n}', download: "Télécharger l'image traitée", edit: 'Modifier le recadrage et le filtre', rotateL: 'Pivoter à gauche', rotateR: 'Pivoter à droite', duplicate: 'Dupliquer',
 			remove: 'Retirer', drag: 'Glissez pour réordonner (les flèches du clavier la déplacent aussi)', processing: 'Traitement…', error: 'Échec du traitement', cropped: 'Recadrée'
 		},
 		filters: { original: 'Original', enhance: 'Amélioré', gray: 'Gris', bw: 'N&B' },
@@ -229,7 +229,7 @@ export default ns({
 			saved: 'Enregistré', failed: 'Impossible de le créer : {msg}'
 		},
 		editor: {
-			title: 'Modifier la page {n}', crop: 'Recadrer', filter: 'Filtre', auto: 'Détecter', full: 'Page entière', noDetect: 'Aucun document détecté sur cette photo.',
+			title: 'Modifier la page {n}', crop: 'Recadrer', filter: 'Filtre', result: 'Résultat', download: "Télécharger l'image", auto: 'Détecter', full: 'Page entière', noDetect: 'Aucun document détecté sur cette photo.',
 			threshold: 'Seuil', lighter: 'Plus clair', darker: 'Plus foncé', apply: 'Appliquer', cancel: 'Annuler', loading: 'Chargement…',
 			hint: 'Faites glisser les coins ou les bords. La perspective est corrigée et la proportion réelle du papier est calculée.', corner: 'Coin {n}', edge: 'Bord {n}'
 		},

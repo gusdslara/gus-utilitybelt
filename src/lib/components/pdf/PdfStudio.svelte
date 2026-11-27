@@ -14,7 +14,7 @@
 	import Scanner from './Scanner.svelte';
 	import {
 		ScanText, ImagePlus, Camera, RotateCcw, RotateCw, Crop, Trash2, GripVertical, LoaderCircle, FileDown, ExternalLink, Share2,
-		Images, ArrowDownAZ, ArrowUpDown, WandSparkles, CircleStop, CircleAlert, X, FileText, ShieldCheck
+		Images, ArrowDownAZ, ArrowUpDown, WandSparkles, CircleStop, CircleAlert, X, FileText, ShieldCheck, Download
 	} from '@lucide/svelte';
 
 	let fileInput: HTMLInputElement | undefined = $state();
@@ -162,6 +162,20 @@
 		}
 	}
 
+	let savingId = $state<string | null>(null);
+	async function downloadPage(id: string) {
+		failure = '';
+		savingId = id;
+		try {
+			const r = await pdf.exportImage(id);
+			await saveBlob(r.blob, r.name);
+		} catch (e) {
+			failure = t('pdf.export.failed', { msg: e instanceof Error ? e.message : String(e) });
+		} finally {
+			savingId = null;
+		}
+	}
+
 	async function images() {
 		failure = '';
 		try {
@@ -260,6 +274,9 @@
 								<button class="btn ghost icon" onclick={() => pdf.rotate(p.id, -1)} aria-label={t('pdf.page.rotateL')} title={t('pdf.page.rotateL')}><RotateCcw size={16} /></button>
 								<button class="btn ghost icon" onclick={() => pdf.rotate(p.id, 1)} aria-label={t('pdf.page.rotateR')} title={t('pdf.page.rotateR')}><RotateCw size={16} /></button>
 								<button class="btn ghost icon" onclick={() => (editing = p.id)} aria-label={t('pdf.page.edit')} title={t('pdf.page.edit')}><Crop size={16} /></button>
+								<button class="btn ghost icon" onclick={() => downloadPage(p.id)} disabled={savingId === p.id} aria-label={t('pdf.page.download')} title={t('pdf.page.download')}>
+									{#if savingId === p.id}<LoaderCircle class="spin" size={16} />{:else}<Download size={16} />{/if}
+								</button>
 								<button class="btn ghost icon danger" onclick={() => pdf.remove(p.id)} aria-label={t('pdf.page.remove')} title={t('pdf.page.remove')}><Trash2 size={16} /></button>
 							</div>
 						</li>
@@ -470,7 +487,7 @@
 		.grid { --slot: 150px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 		.card { padding: 8px; }
 		.bar .lbl { display: none; }
-		.acts .btn { width: 32px; height: 32px; }
+		.acts .btn { flex: 1 1 0; width: auto; min-width: 0; height: 36px; }
 	}
 	@media (prefers-reduced-motion: reduce) { .card, .paper { transition: none; } }
 </style>
