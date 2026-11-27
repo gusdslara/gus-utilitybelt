@@ -2,8 +2,8 @@
 // a dock e a ponte de IA (app_open), e refletido na URL (?app=…&tool=…) para links diretos.
 import { categories, type CategoryId, type ToolId } from '#lib/tools/registry.ts';
 
-export type AppId = 'editor' | 'image' | 'motion' | 'clipboard' | 'api' | CategoryId;
-export const APP_IDS: AppId[] = ['editor', 'image', 'motion', 'clipboard', 'api', ...categories.map((c) => c.id)];
+export type AppId = 'editor' | 'image' | 'motion' | 'pdf' | 'clipboard' | 'api' | CategoryId;
+export const APP_IDS: AppId[] = ['editor', 'image', 'motion', 'pdf', 'clipboard', 'api', ...categories.map((c) => c.id)];
 export const TOOL_IDS: ToolId[] = categories.flatMap((c) => c.tools);
 
 class UiState {
@@ -13,6 +13,8 @@ class UiState {
 	imageMode = $state<'edit' | 'convert'>('edit');
 	/** App Motion: criar animação ou abrir/editar Lottie. */
 	motionMode = $state<'create' | 'view'>('create');
+	/** App PDF: ?mode=scan abre direto a câmera. */
+	pdfScan = $state(false);
 	/** Formato pré-selecionado na exportação do Motion (páginas de SEO, ex.: lottie-para-gif). */
 	motionExport = $state<string | null>(null);
 	/** Formato inicial do conversor (?to=webp). */
@@ -52,6 +54,7 @@ class UiState {
 		const mode = url.searchParams.get('mode');
 		if (mode === 'convert' || mode === 'edit') this.imageMode = mode;
 		if (mode === 'create' || mode === 'view') this.motionMode = mode;
+		this.pdfScan = mode === 'scan';
 		const to = url.searchParams.get('to');
 		if (to && /^[a-z0-9]{2,5}$/.test(to)) this.convertTo = to;
 		if (tool && TOOL_IDS.includes(tool) && (!app || app === categories.find((c) => c.tools.includes(tool))?.id)) this.openToolById(tool);
@@ -66,6 +69,7 @@ class UiState {
 			if (this.imageMode === 'convert' && this.convertTo && this.convertTo !== this.defaults.convertTo) p.set('to', this.convertTo);
 		}
 		if (this.current === 'motion' && this.motionMode !== this.defaults.motionMode) p.set('mode', this.motionMode);
+		if (this.current === 'pdf' && this.pdfScan) p.set('mode', 'scan');
 		if (this.openTool) p.set('tool', this.openTool);
 		if (this.chromeless) p.set('automation', '1');
 		const s = p.toString();

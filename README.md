@@ -37,6 +37,13 @@ Notas do stack:
   - **Abrir Lottie**: `.json` (Bodymovin) e `.lottie` (dotLottie v1/v2). Tocar, scrub quadro a quadro, velocidade, fundo; trocar cores no arquivo todo, editar textos, ocultar/remover camadas (inclusive dentro de precomps), mudar velocidade, recortar frames, redimensionar; desfazer.
   - **Exportar**: Lottie JSON, dotLottie, GIF (com transparência), MP4 (H.264 via WebCodecs), WebM (VP9, muxer próprio), sequência PNG (ZIP), quadro PNG/SVG. Progresso e Parar.
   - Limitação do lottie-web: textos usam fontes instaladas no aparelho (o renderizador canvas não desenha texto sem glifos embutidos; o app usa SVG nesses casos).
+- **PDF e Scanner** (carregado sob demanda, `?app=pdf`; `?app=pdf&mode=scan` abre direto a câmera):
+  - **Imagens → PDF**: arrastar, colar (Ctrl+V) ou escolher (JPG, PNG, WebP, HEIC, AVIF, GIF, BMP, SVG). Reordenar arrastando pela alça (mouse/toque) ou pelas setas do teclado, ordenar por nome, inverter, girar, remover.
+  - **Página**: A4, Carta, Ofício, A3, A5 ou igual à imagem; orientação automática/retrato/paisagem; encaixe inteira/preencher/esticar; margem 0/5/10/20 mm. As miniaturas mostram o papel com o layout real.
+  - **Qualidade**: Original (JPEG sem edição entra sem recompressão; PNG fica sem perdas via Flate), Alta 300 dpi, Equilibrada 200 dpi, Compacta 130 dpi. P&B vira imagem de 1 bit (página escaneada com poucas dezenas de KB). Também exporta as páginas como imagens (ZIP).
+  - **Scanner**: câmera ao vivo com detecção do documento (bordas por cor + Hough orientado + melhor quadrilátero, num worker), captura automática quando a imagem estabiliza, lanterna, troca de câmera, foto na resolução do sensor (ImageCapture) e revisão opcional. Sem HTTPS/câmera, usa a câmera nativa do aparelho com o mesmo recorte automático.
+  - **Recorte e filtros**: correção de perspectiva com a proporção real do papel (focal estimada pelos pontos de fuga, encaixe em A4/Carta quando bate), cantos e bordas arrastáveis com lupa; filtros Original, Realçado (remove sombra/iluminação irregular, papel branco, cores vivas), Cinza e P&B com limiar ajustável. Funciona também em fotos importadas da galeria.
+  - Código: `src/lib/scan/` (geometria, detecção, warp, filtros, worker) e `src/lib/pdf/` (gerador de PDF próprio, layout, estado). Sem dependência nova (usa `fflate`).
 - **Segurança**: gerador de senhas (níveis, entropia, sem ambíguos), HMAC gerar/validar (SHA-1 a SHA-512).
 - **Dev**: UUID v4/v7, gerador de cron com próximos disparos, testador de regex.
 - **Conteúdo**: Lorem Ipsum / Mussum Ipsum, QR Code, código de barras.

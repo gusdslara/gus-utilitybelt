@@ -23,7 +23,7 @@
 	let urlReady = $state(false);
 
 	const cat = $derived(categories.find((c) => c.id === ui.current) ?? null);
-	const title = $derived(ui.current === 'editor' ? t('app.dock.editor') : ui.current === 'image' ? t('app.dock.image') : ui.current === 'motion' ? t('app.dock.motion') : ui.current === 'clipboard' ? t('app.dock.clipboard') : ui.current === 'api' ? t('app.dock.api') : cat ? categoryLabel(cat.id) : '');
+	const title = $derived(ui.current === 'editor' ? t('app.dock.editor') : ui.current === 'image' ? t('app.dock.image') : ui.current === 'motion' ? t('app.dock.motion') : ui.current === 'pdf' ? t('app.dock.pdf') : ui.current === 'clipboard' ? t('app.dock.clipboard') : ui.current === 'api' ? t('app.dock.api') : cat ? categoryLabel(cat.id) : '');
 
 	onMount(() => {
 		// Link direto: /?app=dev&tool=uuid (ou só ?tool=uuid)
@@ -104,6 +104,10 @@
 						<m.default />
 					{/await}
 				{/if}
+			{:else if ui.current === 'pdf'}
+				{#await import('#lib/components/pdf/PdfStudio.svelte') then m}
+					<m.default />
+				{/await}
 			{:else if ui.current === 'image'}
 				{#if imageView}
 					{@render imageView()}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { FileCode, Image as ImageIcon, Clapperboard, Shield, Code, Type, IdCard, ClipboardList, Bot, MessageCircle } from '@lucide/svelte';
+	import { FileCode, Image as ImageIcon, Clapperboard, ScanText, Shield, Code, Type, IdCard, ClipboardList, Bot, MessageCircle } from '@lucide/svelte';
 	import { clipboard } from '#lib/clipboard/history.svelte.ts';
 	import { categoryLabel } from '#lib/tools/registry.ts';
 	import { t } from '#lib/i18n/index.svelte.ts';
@@ -11,6 +11,7 @@
 		{ id: 'editor', label: t('app.dock.editor'), icon: FileCode },
 		{ id: 'image', label: t('app.dock.image'), icon: ImageIcon },
 		{ id: 'motion', label: t('app.dock.motion'), icon: Clapperboard },
+		{ id: 'pdf', label: t('app.dock.pdf'), icon: ScanText },
 		{ id: 'seguranca', label: categoryLabel('seguranca'), icon: Shield },
 		{ id: 'dev', label: categoryLabel('dev'), icon: Code },
 		{ id: 'conteudo', label: categoryLabel('conteudo'), icon: Type },
@@ -21,7 +22,7 @@
 
 <nav class="dock" aria-label={t('app.dock.label')}>
 	{#each items as it, i (it.id)}
-		{#if i === 3}<span class="divider" aria-hidden="true"></span>{/if}
+		{#if i === 4}<span class="divider" aria-hidden="true"></span>{/if}
 		<button class="app" class:active={current === it.id} data-app={it.id} aria-label={it.label} aria-current={current === it.id ? 'page' : undefined} onclick={() => onselect(it.id)}>
 			<it.icon size={22} strokeWidth={1.75} />
 			<span class="tip" role="tooltip">{it.label}</span>

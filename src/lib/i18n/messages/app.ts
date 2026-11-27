@@ -3,8 +3,8 @@ import { ns } from './ns.ts';
 // Janela, dock, seletor de idioma e nomes/descrições das ferramentas (registry.ts).
 export default ns({
 	pt: {
-		meta: { title: 'Gus Utility Belt · Kit de utilidades para devs', description: 'Kit de utilidades para devs: editor local, senhas, UUID, QR, código de barras, cron, regex, HMAC, WhatsApp (WAMID, webhook), CPF e CNPJ. Tudo roda no seu navegador.' },
-		dock: { label: 'Ferramentas', editor: 'Editor', image: 'Imagem', motion: 'Motion', clipboard: 'Clipboard', clipboardCount: 'Clipboard ({count} itens)', api: 'API e IA', language: 'Idioma: {name}' },
+		meta: { title: 'Gus Utility Belt · Kit de utilidades para devs', description: 'Kit de utilidades para devs: editor local, imagens em PDF, scanner de documentos, senhas, UUID, QR, código de barras, cron, regex, HMAC, WhatsApp (WAMID, webhook), CPF e CNPJ. Tudo roda no seu navegador.' },
+		dock: { label: 'Ferramentas', editor: 'Editor', image: 'Imagem', motion: 'Motion', pdf: 'PDF e Scanner', clipboard: 'Clipboard', clipboardCount: 'Clipboard ({count} itens)', api: 'API e IA', language: 'Idioma: {name}' },
 		toolsCount: '{count} ferramentas',
 		categories: { seguranca: 'Segurança', dev: 'Dev', conteudo: 'Conteúdo', whatsapp: 'WhatsApp', documentos: 'Documentos' },
 		tools: {
@@ -23,8 +23,8 @@ export default ns({
 		}
 	},
 	en: {
-		meta: { title: 'Gus Utility Belt · Developer utility kit', description: 'Developer utility kit: local editor, passwords, UUID, QR, barcodes, cron, regex, HMAC, WhatsApp (WAMID, webhook), Brazilian CPF and CNPJ. Everything runs in your browser.' },
-		dock: { label: 'Tools', editor: 'Editor', image: 'Image', motion: 'Motion', clipboard: 'Clipboard', clipboardCount: 'Clipboard ({count} items)', api: 'API & AI', language: 'Language: {name}' },
+		meta: { title: 'Gus Utility Belt · Developer utility kit', description: 'Developer utility kit: local editor, images to PDF, document scanner, passwords, UUID, QR, barcodes, cron, regex, HMAC, WhatsApp (WAMID, webhook), Brazilian CPF and CNPJ. Everything runs in your browser.' },
+		dock: { label: 'Tools', editor: 'Editor', image: 'Image', motion: 'Motion', pdf: 'PDF & Scanner', clipboard: 'Clipboard', clipboardCount: 'Clipboard ({count} items)', api: 'API & AI', language: 'Language: {name}' },
 		toolsCount: '{count} tools',
 		categories: { seguranca: 'Security', dev: 'Dev', conteudo: 'Content', whatsapp: 'WhatsApp', documentos: 'Documents' },
 		tools: {
@@ -43,8 +43,8 @@ export default ns({
 		}
 	},
 	es: {
-		meta: { title: 'Gus Utility Belt · Kit de utilidades para devs', description: 'Kit de utilidades para devs: editor local, contraseñas, UUID, QR, códigos de barras, cron, regex, HMAC, WhatsApp (WAMID, webhook), CPF y CNPJ de Brasil. Todo se ejecuta en tu navegador.' },
-		dock: { label: 'Herramientas', editor: 'Editor', image: 'Imagen', motion: 'Motion', clipboard: 'Portapapeles', clipboardCount: 'Portapapeles ({count} elementos)', api: 'API e IA', language: 'Idioma: {name}' },
+		meta: { title: 'Gus Utility Belt · Kit de utilidades para devs', description: 'Kit de utilidades para devs: editor local, imágenes a PDF, escáner de documentos, contraseñas, UUID, QR, códigos de barras, cron, regex, HMAC, WhatsApp (WAMID, webhook), CPF y CNPJ de Brasil. Todo se ejecuta en tu navegador.' },
+		dock: { label: 'Herramientas', editor: 'Editor', image: 'Imagen', motion: 'Motion', pdf: 'PDF y Escáner', clipboard: 'Portapapeles', clipboardCount: 'Portapapeles ({count} elementos)', api: 'API e IA', language: 'Idioma: {name}' },
 		toolsCount: '{count} herramientas',
 		categories: { seguranca: 'Seguridad', dev: 'Dev', conteudo: 'Contenido', whatsapp: 'WhatsApp', documentos: 'Documentos' },
 		tools: {
@@ -63,8 +63,8 @@ export default ns({
 		}
 	},
 	fr: {
-		meta: { title: 'Gus Utility Belt · Boîte à outils pour devs', description: 'Boîte à outils pour devs : éditeur local, mots de passe, UUID, QR, codes-barres, cron, regex, HMAC, WhatsApp (WAMID, webhook), CPF et CNPJ brésiliens. Tout s’exécute dans votre navigateur.' },
-		dock: { label: 'Outils', editor: 'Éditeur', image: 'Image', motion: 'Motion', clipboard: 'Presse-papiers', clipboardCount: 'Presse-papiers ({count} éléments)', api: 'API et IA', language: 'Langue : {name}' },
+		meta: { title: 'Gus Utility Belt · Boîte à outils pour devs', description: 'Boîte à outils pour devs : éditeur local, images en PDF, scanner de documents, mots de passe, UUID, QR, codes-barres, cron, regex, HMAC, WhatsApp (WAMID, webhook), CPF et CNPJ brésiliens. Tout s’exécute dans votre navigateur.' },
+		dock: { label: 'Outils', editor: 'Éditeur', image: 'Image', motion: 'Motion', pdf: 'PDF et Scanner', clipboard: 'Presse-papiers', clipboardCount: 'Presse-papiers ({count} éléments)', api: 'API et IA', language: 'Langue : {name}' },
 		toolsCount: '{count} outils',
 		categories: { seguranca: 'Sécurité', dev: 'Dev', conteudo: 'Contenu', whatsapp: 'WhatsApp', documentos: 'Documents' },
 		tools: {

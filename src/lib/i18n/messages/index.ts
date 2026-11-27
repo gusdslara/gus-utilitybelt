@@ -11,8 +11,9 @@ import imageFx from './imageFx.ts';
 import imageAi from './imageAi.ts';
 import imageConv from './imageConv.ts';
 import motion from './motion.ts';
+import pdf from './pdf.ts';
 
-const all = { common, app, api, whatsapp, tools, editor, clipboard, image, imageFx, imageAi, imageConv, motion };
+const all = { common, app, api, whatsapp, tools, editor, clipboard, image, imageFx, imageAi, imageConv, motion, pdf };
 type All = typeof all;
 export type Messages = { [K in keyof All]: All[K]['pt'] };
 type Lang = 'pt' | 'en' | 'es' | 'fr';
